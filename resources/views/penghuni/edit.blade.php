@@ -1,0 +1,63 @@
+@extends('layouts.app')
+@section('title', 'Edit Penghuni')
+
+@push('styles')
+<style>
+    .page-title { font-size:1.2rem; font-weight:bold; color:#1e3a5f; margin-bottom:1.5rem; }
+    .card { background:#fff; border-radius:8px; box-shadow:0 1px 4px rgba(0,0,0,0.08); padding:1.5rem; max-width:560px; }
+    .form-group { margin-bottom:1.2rem; }
+    label { display:block; margin-bottom:.4rem; font-size:.875rem; font-weight:600; color:#374151; }
+    input, select, textarea { width:100%; padding:.6rem .8rem; border:1px solid #d1d5db; border-radius:4px; font-size:.9rem; }
+    input:focus, select:focus, textarea:focus { outline:none; border-color:#2563eb; }
+    .error-msg { color:#dc2626; font-size:.8rem; margin-top:.3rem; }
+    .btn { padding:.5rem 1.2rem; border-radius:4px; border:none; cursor:pointer; font-size:.875rem; text-decoration:none; display:inline-block; }
+    .btn-primary { background:#2563eb; color:#fff; }
+    .btn-secondary { background:#6b7280; color:#fff; margin-left:.5rem; }
+</style>
+@endpush
+
+@section('content')
+<div class="page-title">Edit Penghuni</div>
+<div class="card">
+    <form method="POST" action="{{ route('penghuni.update', $penghuni->id_penghuni) }}">
+        @csrf @method('PUT')
+        <div class="form-group">
+            <label>Nama Lengkap</label>
+            <input type="text" name="nama" value="{{ old('nama', $penghuni->nama) }}">
+            @error('nama') <div class="error-msg">{{ $message }}</div> @enderror
+        </div>
+        <div class="form-group">
+            <label>Jenis Kelamin</label>
+            <select name="jenis_kelamin">
+                <option value="Laki-laki"  {{ old('jenis_kelamin',$penghuni->jenis_kelamin)=='Laki-laki'  ? 'selected':'' }}>Laki-laki</option>
+                <option value="Perempuan"  {{ old('jenis_kelamin',$penghuni->jenis_kelamin)=='Perempuan'  ? 'selected':'' }}>Perempuan</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>No. HP</label>
+            <input type="text" name="no_hp" value="{{ old('no_hp', $penghuni->no_hp) }}">
+        </div>
+        <div class="form-group">
+            <label>Alamat</label>
+            <textarea name="alamat" rows="2">{{ old('alamat', $penghuni->alamat) }}</textarea>
+        </div>
+        <div class="form-group">
+            <label>Tanggal Masuk</label>
+            <input type="date" name="tanggal_masuk" value="{{ old('tanggal_masuk', $penghuni->tanggal_masuk) }}">
+        </div>
+        <div class="form-group">
+            <label>Kamar</label>
+            <select name="id_kamar">
+                @foreach($kamar as $k)
+                <option value="{{ $k->id_kamar }}" {{ old('id_kamar',$penghuni->id_kamar)==$k->id_kamar ? 'selected':'' }}>
+                    {{ $k->nomor_kamar }} ({{ $k->terisi }}/{{ $k->kapasitas }}) — {{ $k->status }}
+                </option>
+                @endforeach
+            </select>
+            @error('id_kamar') <div class="error-msg">{{ $message }}</div> @enderror
+        </div>
+        <button type="submit" class="btn btn-primary">Update</button>
+        <a href="{{ route('penghuni.index') }}" class="btn btn-secondary">Batal</a>
+    </form>
+</div>
+@endsection
