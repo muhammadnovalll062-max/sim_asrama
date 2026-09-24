@@ -39,7 +39,7 @@
 <div class="card">
     <table>
         <thead>
-            <tr><th>No</th><th>Nama</th><th>Jenis Kelamin</th><th>No. HP</th><th>Status</th><th>Aksi</th></tr>
+            <tr><th>No</th><th>Nama</th><th>Jenis Kelamin</th><th>No. HP</th><th>Alamat</th><th>Status</th><th>Aksi</th></tr>
         </thead>
         <tbody>
             @forelse($calon as $i => $c)
@@ -48,6 +48,7 @@
                 <td>{{ $c->nama }}</td>
                 <td>{{ $c->jenis_kelamin }}</td>
                 <td>{{ $c->no_hp ?? '-' }}</td>
+                <td>{{ $c->alamat ?? '-' }}</td>
                 <td>
                     <span class="badge badge-{{ strtolower($c->status) }}">{{ $c->status }}</span>
                 </td>

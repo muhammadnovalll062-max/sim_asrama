@@ -50,7 +50,8 @@ Route::middleware(['auth', 'role:penilai'])->group(function () {
     Route::get('/penilai/dashboard', [PenilaiDashboardController::class, 'index'])->name('penilai.dashboard');
     Route::get('/calon/riwayat', [CalonPenghuniController::class, 'riwayat'])->name('calon.riwayat');   
     Route::resource('calon', CalonPenghuniController::class);
-    Route::resource('kriteria', KriteriaController::class);
+    Route::resource('kriteria', KriteriaController::class)
+    ->parameters(['kriteria' => 'kriterion']);
     Route::get('/penilaian',                    [PenilaianController::class, 'index'])->name('penilaian.index');
     Route::get('/penilaian/create/{id_calon?}', [PenilaianController::class, 'create'])->name('penilaian.create');
     Route::post('/penilaian',                   [PenilaianController::class, 'store'])->name('penilaian.store');

@@ -46,7 +46,7 @@
         <thead>
             <tr>
                 <th>No</th><th>Nama</th><th>Jenis Kelamin</th>
-                <th>No. HP</th><th>Kamar</th><th>Tgl Masuk</th><th>Aksi</th>
+                <th>No. HP</th><th>Kamar</th><th>Tgl Masuk</th><th>Alamat</th><th>Aksi</th>
             </tr>
         </thead>
         <tbody>
@@ -58,6 +58,7 @@
                 <td>{{ $p->no_hp ?? '-' }}</td>
                 <td>{{ $p->kamar->nomor_kamar ?? '-' }}</td>
                 <td>{{ $p->tanggal_masuk ? \Carbon\Carbon::parse($p->tanggal_masuk)->format('d/m/Y') : '-' }}</td>
+                <td>{{ $p->alamat ?? '-' }}</td>
                 <td>
                     <a href="{{ route('penghuni.edit', $p->id_penghuni) }}" class="btn btn-warning">Edit</a>
                     <form method="POST" action="{{ route('penghuni.destroy', $p->id_penghuni) }}" style="display:inline">
